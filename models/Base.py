@@ -37,10 +37,10 @@ class Base(ABC):
         """Calculate losses, gradients, and update network weights; called in every training iteration"""
         pass
 
-    def save_networks(self, epoch):
+    def save_networks(self, epoch, checkpoint_dir):
         for name, net in self.model.items():
             save_filename = '%s_net_%s.pth' % (epoch, name)
-            save_path = os.path.join(opt.checkpoint_dir, save_filename)
+            save_path = os.path.join(checkpoint_dir, save_filename)
             print("=>save checkpoint at: {}".format(save_path))
             if opt.device == 'cuda':
                 torch.save(net.module.cpu().state_dict(), save_path)

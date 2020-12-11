@@ -28,6 +28,10 @@ class BaseModel(Base):
     def __init__(self):
         super(Base, self).__init__()
         self.net = VGG().to(opt.device).eval()
+        self.content_image = load_image(opt.content_image_path).to(opt.device)
+        self.style_image = load_image(opt.style_image_path).to(opt.device)
+        self.out_image = self.content_image.clone().requires_grad_(True)
+        self.optimizer = optim.Adam([self.out_image], opt.learning_rate)
 
         ## Hyper Pramaters
         self.alpha = opt.alpha
@@ -35,15 +39,12 @@ class BaseModel(Base):
         self.model = {
             'basemodel':self.net
         }
-        self.visual_names = ['total loss']
+        self.visual_names = ['total_loss']
     
     def set_input(self):
-        self.content_image = load_image(opt.content_image_path).to(opt.device)
-        self.style_image = load_image(opt.style_image_path).to(opt.device)
-        self.out_image = self.content_image.clone().requires_grad_(True)
-        self.optimizer = optim.Adam([self.out_image], opt.learning_rate)
+        pass
 
-    def forward(self):
+    def forward(self, x):
         content_features = self.net(self.content_image)
         style_features = self.net(self.style_image)
         out_features = self.net(self.out_image)
