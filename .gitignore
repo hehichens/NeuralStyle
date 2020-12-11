@@ -132,3 +132,6 @@ dmypy.json
 .vscode
 .idea
 
+# dir
+weights/
+results/
