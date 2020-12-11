@@ -56,6 +56,8 @@ def options():
     # Net
     parser.add_argument("--checkpoint_dir", help="checkpoints saved directory", \
         default="./weights", type=str)
+    parser.add_argument("--update_html_freq", help="update html frequency", \
+        default=100)
     parser.add_argument("--save_epoch_freq", help="save epoch frequency", \
         default=100, type=int)
     # Image
@@ -66,10 +68,20 @@ def options():
     ## Visualize
     parser.add_argument("--print_freq", help="print trianing information frequency", \
         default=10, type=int)
+    parser.add_argument("--display_server", help="visdom display server", \
+        default="http://localhost", type=str)
+    parser.add_argument("--display_env", help="visdom display enviroment", \
+        default="main", type=str)
+    parser.add_argument("--display_id", help="visdom display id", \
+        default=None, type=str)
     parser.add_argument("--display_port", help="visdom display port", \
-        default=8096, type=int)
+        default=8097, type=str)
     parser.add_argument("--display_winsize", help="visdom diaplay window size", \
         default=400, type=int)
+    parser.add_argument("--display_ncols", help="displat image columns", \
+        default=2, type=int)
+    parser.add_argument("--display_freq", help="visdom display frequency", \
+        default=100, type=int)
     parser.add_argument("--use_html", help="wheather use html", \
         default=True, type=bool)
     
